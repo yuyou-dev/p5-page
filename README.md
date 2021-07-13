@@ -21,6 +21,12 @@ npm run pack
 
 ### 页面元素变换
 moveBy:
+定义:
+item.moveBy(dx,dy,duration)
+- dx:x方向移动距离
+- dy:y方向移动距离
+- duration:持续时长
 ```javascript
+item.moveBy(100,100)
 item.moveBy(100,100,600)    //从现有位置，移动(100,100)距离，移动时间：600毫秒
 ```
