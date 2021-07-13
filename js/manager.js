@@ -9,6 +9,7 @@ class Manager{
         this.status = 0;
     }
     init(){
+        /*
         let self = this;
         this.drag(function(){
             switch(self.status){
@@ -23,9 +24,6 @@ class Manager{
         });
 
         let page1 = this.setPage('page1','center',function(){
-            /* 
-                初始化页面1
-            */
            console.log('page1 start')
         },true);
         page1.show();
@@ -42,6 +40,7 @@ class Manager{
             console.log(q_hide);
             this.getChild('p_3_background').visible = true;
         });
+        */
     }
     start(){
         this.page['page2'].show();
