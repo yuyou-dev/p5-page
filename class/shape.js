@@ -27,14 +27,15 @@ class Shape extends Basic{
 
         this.ease = easeInOutCubic;
     }
-    moveBy(dx,dy){
+    moveBy(dx,dy,duration = 600){
         /*
             移动dx,dy的距离
         */
         this.movingStartTime = millis();
         this.moving = true;
+        this.duration = duration;
 
-        this.from = this.rect;
+        this.fromRect =[this.rect[0],this.rect[1],this.rect[2],this.rect[3]];
         this.targetRect = [this.rect[0] + dx,this.rect[1] + dy,this.rect[2],this.rect[3]];
     }
     moveTo(x,y,callback){
@@ -111,7 +112,7 @@ class Shape extends Basic{
 
     }
     touchEnded(){
-        if(manager.preventEnded)return;
+        if(manager.preventEnded || !this.visible)return;
         if(this.endedCallback && this.checkInside(this.rect)){
             manager.preventEnded = true;
             this.endedCallback();

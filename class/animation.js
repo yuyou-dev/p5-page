@@ -74,7 +74,11 @@ class Animation extends Basic{
         this.checkInside() && this.startedCallback && this.startedCallback();
     }
     touchEnded(){
-        this.checkInside() && this.endedCallback && this.endedCallback();
+        if(manager.preventEnded || !this.visible)return;
+        if(this.endedCallback && this.checkInside(this.rect)){
+            manager.preventEnded = true;
+            this.endedCallback();
+        }
     }
     touchMoved(){
         

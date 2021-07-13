@@ -3,23 +3,22 @@ class Manager{
         this.page = {};
         this.init();
 
-        this.currentPageIndex = 1;
-        this.currentAnswerIndex = 1;
-
         this.status = 0;
     }
     init(){
-        /*
         let self = this;
         this.drag(function(){
             switch(self.status){
                 case 0:
-                    self.start();
+                    self.page['page2'].show();
                     self.status = 1;
                     break;
                 case 1:
                     self.page['page3'].show();
+                    self.status = 2;
                     break;
+                case 2:
+                    self.page['page3'].getChild('q1').moveBy(100,100);
             }
         });
 
@@ -37,13 +36,13 @@ class Manager{
             for(let item of q_hide){
                 item.visible = false;
             }
-            console.log(q_hide);
+            this.setTouch('q1',function(){
+                console.log("q1_click1")
+            });
             this.getChild('p_3_background').visible = true;
+            
         });
-        */
-    }
-    start(){
-        this.page['page2'].show();
+        
     }
     drag(callback){
         this.setTouch(function(){

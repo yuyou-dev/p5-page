@@ -28,9 +28,9 @@ class Page extends Basic{
         this.visible = true;
     }
 
-    setTouch(name,endedCallback,moveedCallback,startedCallback){
-        let btn = this.getSprite(name);
-        btn.setTouch(endedCallback,moveedCallback,startedCallback);
+    setTouch(name,endedCallback,movedCallback,startedCallback){
+        let btn = this.getChild(name);
+        btn.setTouch(endedCallback,movedCallback,startedCallback);
         return btn;
     }
     touchStarted(){
