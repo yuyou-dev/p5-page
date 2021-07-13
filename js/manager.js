@@ -91,6 +91,9 @@ class Manager{
     update(){
 
     }
+    resizeUpdate(){
+        
+    }
     render(){
         for(let page_name in this.page){
             let p = this.page[page_name];
