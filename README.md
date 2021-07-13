@@ -1,5 +1,4 @@
-# p5-page
-
+# Usage
 
 ### manager.js初始化
 初始化名为'page_name'的页面
@@ -9,7 +8,6 @@ let page_name = this.setPage('page_name','center',function(){
 },true);
 page_name.show();
 ```
-
 
 ### 自动切图脚本
 ```javascript
@@ -21,4 +19,8 @@ npm run export
 npm run pack
 ```
 
-
+### 页面元素变换
+moveBy:
+```javascript
+item.moveBy(100,100,600)    //从现有位置，移动(100,100)距离，移动时间：600毫秒
+```
