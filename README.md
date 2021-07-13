@@ -4,10 +4,10 @@
 ### manager.js初始化
 初始化名为'page_name'的页面
 ```javascript
-       let page_name = this.setPage('page_name','center',function(){
-           console.log('page_name start')
-        },true);
-        page_name.show();
+let page_name = this.setPage('page_name','center',function(){
+       console.log('page_name start')
+},true);
+page_name.show();
 ```
 
 
