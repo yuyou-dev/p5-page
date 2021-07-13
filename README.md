@@ -21,6 +21,7 @@ npm run pack
 
 ### 页面元素变换
 moveBy:
+
 定义:
 item.moveBy(dx,dy,duration)
 - dx:x方向移动距离
