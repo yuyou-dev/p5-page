@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "color-transform": "^1.0.1",
+    "cos-nodejs-sdk-v5": "^2.9.20",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "jpg-stream": "^1.1.2",
+    "png-stream": "^1.0.5",
+    "pngjs": "^3.2.0",
+    "psd": "^3.2.0",
+    "tinify": "^1.6.0-beta.2"
+  },
+  "scripts": {
+    "export": "node ./node/export_psd.js",
+    "pack": "TexturePacker  --multipack --texture-format png --format json --max-width 2048 --max-height 2048 --extrude 1 --trim-mode Trim --data res/s{n}.json --sheet s{n}.png assets/page  --opt RGBA8888   --trim-sprite-names  --disable-rotation",
+    "upload": "node ./node/upload_cos.js"
+  }
+}

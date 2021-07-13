@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>你好，p5-page</title>
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            overflow: hidden;
+            background: #5da7f6;
+        }
+        #poster {
+            width: 100%;
+            height: 100%;
+            display: none;
+            position: absolute;
+            z-index: 10000;
+            opacity: 0;
+            top: 100px;
+        }
+        #p5_loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: block;
+            background: #5da7f6;
+        }
+    </style>
+    <script src='libs/p5.min.js'></script>
+    <script src='class/basic.js'></script>
+    <script src='js/manager.js'></script>
+    <script src='libs/vconsole.min.js'></script>
+</head>
+
+<body>
+    <div id="p5_loading">
+
+    </div>
+    <image id="poster"></image>
+</body>
+<script>
+    let baseUrl = "";
+    let page;
+
+    let textureGroup = [];
+    let jsonGroup = {};
+    let tex, tex_config;
+    let loadedCount = 0;
+
+    let manager;
+
+    function loadingUpdate() {
+        loadedCount++;
+    }
+    function loadJs(url, callback) {
+        var script = document.createElement("script");
+        script.src = url;
+        document.body.appendChild(script);
+        script.addEventListener("load", function () {
+            script.parentNode.removeChild(script);
+            callback && callback();
+            this.removeEventListener('load', arguments.callee, false);
+        });
+    }
+    function setup() {
+        pixelDensity(2);
+        createCanvas(windowWidth, windowHeight, WEBGL);
+        background(51, 149, 253, 255);
+        manager = new Manager();
+        loadingFinished = true;
+    }
+
+    function preload() {
+        
+        for (let i = 0; i < 25; i++) {
+            let tex = loadImage(baseUrl + 'res/s' + i + '.webp', loadingUpdate);
+            let tex_config = loadJSON(baseUrl + 'res/s' + i + '.json', loadingUpdate);
+            textureGroup.push({
+                texture: tex,
+                config: tex_config
+            });
+        }
+        
+
+        loadJs(baseUrl + 'libs/easing.js', loadingUpdate)
+        loadJs(baseUrl + 'class/shape.js', loadingUpdate)
+        loadJs(baseUrl + 'class/animation.js', loadingUpdate)
+        loadJs(baseUrl + 'class/page.js', loadingUpdate)
+        loadJs(baseUrl + 'class/poster.js', loadingUpdate)
+        loadJs(baseUrl + 'class/text.js', loadingUpdate)
+        jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
+    }
+    function touchStarted() {
+        manager && manager.touchStarted();
+        return false;
+    }
+    function touchMoved() {
+        manager && manager.touchMoved();
+        return false;
+    }
+    function touchEnded() {
+        manager && manager.touchEnded();
+        return false;
+    }
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        manager.resizeUpdate();
+    }
+    function draw() {
+        background(51, 149, 253)
+        manager.render();
+    }
+    
+</script>
+
+</html>
