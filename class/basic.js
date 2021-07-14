@@ -84,6 +84,16 @@ class Basic{
         }
         return returnGroup;
     }
+    itemsHide(items){
+        for(let item of items){
+            item.visible=false;
+        }
+    }
+    itemsShow(items){
+        for(let item of items){
+            item.visible=true;
+        }
+    }
     update(){
 
     }
