@@ -78,7 +78,9 @@ class Basic{
         for(let child of this['children']){
             for(let pref of prefs){
                 if(child['name'] && child['name'].indexOf(pref) >= 0){
-                    returnGroup.push(child);
+                    if(returnGroup.indexOf(child)==-1){
+                        returnGroup.push(child);
+                    }
                 }
             }
         }
