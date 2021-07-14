@@ -14,7 +14,7 @@ class Manager{
                     self.status = 1;
                     break;
                 case 1:
-                    self.page['page3'].show();
+                    self.page['page3'].show(['q1_1','q1_2','q1_3','q1_4']);
                     self.status = 2;
                     break;
                 case 2:

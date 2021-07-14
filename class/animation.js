@@ -100,7 +100,7 @@ class Animation extends Basic{
             dt = min(dt,this.frameCount * frameTime);
         }
         let frameIndex = floor(dt / frameTime) % this.frameCount;
-        this.currentFrameIndex = frameIndex;
+        this.currentFrameIndex = (this.frameCount - frameIndex) - 1;
 
         if(!this.moving)return;
         dt = millis() - this.movingStartTime;
