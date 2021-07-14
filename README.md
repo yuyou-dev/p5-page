@@ -10,11 +10,17 @@ page_name.show();
 ```
 
 ### 自动切图脚本
+/node/export.js
 ```javascript
 npm run export
 ```
 
 ### 自动拼图脚本（本机需要安装TexturePacker并配置命令行工具）
+shell:
+```shell
+TexturePacker  --multipack --texture-format webp --format json --max-width 2048 --max-height 2048 --extrude 1 --trim-mode Trim --data res/s{n}.json --sheet s{n}.webp assets/page  --opt RGBA8888   --trim-sprite-names  --disable-rotation
+```
+node:
 ```javascript
 npm run pack
 ```
