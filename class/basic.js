@@ -74,24 +74,24 @@ class Basic{
         return false;
     }
     getChildrenByPref(prefs){
-        var returnGroup = [];
+        var returnGroup = {};
         for(let child of this['children']){
             for(let pref of prefs){
-                if(child['name'] && child['name'].indexOf(pref) >= 0){
-                    returnGroup.push(child);
+                if(child['name'] && child['name'].indexOf(pref) >= 0 && !returnGroup[child['name']]){
+                    returnGroup[child['name']] = child;
                 }
             }
         }
         return returnGroup;
     }
     itemsHide(items){
-        for(let item of items){
-            item.visible=false;
+        for(let item in items){
+            items[item].visible=false;
         }
     }
     itemsShow(items){
-        for(let item of items){
-            item.visible=true;
+        for(let item in items){
+            items[item].visible=true;
         }
     }
     update(){
