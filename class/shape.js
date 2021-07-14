@@ -78,9 +78,9 @@ class Shape extends Basic{
         this.targetRect = [this.rect[0],this.rect[1],this.rect[2] * s,this.rect[3] * s];
     }
     show(){
-        this.opacity = 1;
+        this.opacity = 0;
         this.visible = true;
-        //this.opacityTo(1);
+        this.opacityTo(1);
     }
     hide(){
         let self = this;

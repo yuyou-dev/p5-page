@@ -9,12 +9,8 @@ class Manager{
         let self = this;
         this.drag(function(){
             switch(self.status){
-                case 0:
-                    self.page['page2'].show();
-                    self.status = 1;
-                    break;
                 case 1:
-                    self.page['page3'].show(['q1_1','q1_2','q1_3','q1_4']);
+                    self.page['page3'].show(['q1']);
                     self.status = 2;
                     break;
                 case 2:
@@ -23,7 +19,19 @@ class Manager{
         });
 
         let page1 = this.setPage('page1','center',function(){
-           console.log('page1 start')
+            this.hideAll();
+            for(let i = 1 ; i <= 5 ; i ++){
+                setTimeout(function(_i){
+                    return () => {
+                        page1.getChild('word_' + _i).show();
+                    }
+                }(i),i * 300)
+            }
+            setTimeout(function(){
+                self.page['page2'].show();
+                self.status = 1;
+            },3600);
+            this.getChild('p_1_background').visible = true;
         },true);
         page1.show();
 
@@ -32,17 +40,23 @@ class Manager{
             console.log('page2 start');
         });
         let page3 = this.setPage('page3','center',function(){
-            let q_hide = this.getChildrenByPref(["1_","2_","3_","4_","q1","q2","q3","q4"]);
-            let q_show = this.getChildrenByPref(["1_","q1"]);
-            this.itemsHide(q_hide);
-            this.itemsShow(q_show);
-            this.setTouch('q1',function(){
-                console.log("q1_click1")
-            });
+            this.hideAll();
+            this.getChild('p_3').play();
+            for(let i = 1 ; i <= 4 ; i ++){
+                let q = this.setTouch('q1_' + i,function(_i){
+                    return function(){
+                        console.log(_i)
+                    }
+                }(i));
+                setTimeout(function(_q){
+                    return () => {
+                        _q.show();
+                    }
+                }(q),i * 600)
+                
+            }
             this.getChild('p_3_background').visible = true;
-            
         });
-        
     }
     drag(callback){
         this.setTouch(function(){
@@ -75,6 +89,7 @@ class Manager{
             p.touchEnded && p.touchEnded();
         }
         this.endedCallback && this.endedCallback();
+        this.preventEnded = false;
     }
     touchMoved(){
         for(let page_name in this.page){

@@ -49,6 +49,11 @@ class Page extends Basic{
         this.showCallback = callback;
         this.showOnce = once;
     }
+    hideAll(){
+        for(let item of this.children){
+            item.visible = false;
+        }
+    }
     show(items = false){
         this.visible = true;
         this.showCallback && this.showCallback();
