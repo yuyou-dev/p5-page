@@ -32,10 +32,10 @@ class Manager{
             console.log('page2 start');
         });
         let page3 = this.setPage('page3','center',function(){
-            let q_hide = this.getChildrenByPref(["2_","3_","4_","q2","q3","q4"]);
-            for(let item of q_hide){
-                item.visible = false;
-            }
+            let q_hide = this.getChildrenByPref(["1_","2_","3_","4_","q1","q2","q3","q4"]);
+            let q_show = this.getChildrenByPref(["1_","q1"]);
+            this.itemsHide(q_hide);
+            this.itemsShow(q_show);
             this.setTouch('q1',function(){
                 console.log("q1_click1")
             });
