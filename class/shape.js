@@ -107,23 +107,6 @@ class Shape extends Basic{
         this.movedCallback = movedCallback;
         this.endedCallback = endedCallback;
     }
-    touchStarted(){
-        if(manager.preventStarted || !this.visible)return;
-        if(this.endedCallback && this.checkInside(this.rect)){
-            manager.preventStarted = true;
-            this.endedCallback();
-        }
-    }
-    touchMoved(){
-
-    }
-    touchEnded(){
-        if(manager.preventEnded || !this.visible)return;
-        if(this.endedCallback && this.checkInside(this.rect)){
-            manager.preventEnded = true;
-            this.endedCallback();
-        }
-    }
     addChild(child){
         this.children.push(child);
     }

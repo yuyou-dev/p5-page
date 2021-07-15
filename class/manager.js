@@ -10,7 +10,7 @@ class Manager{
         this.initCallback = callback;
     }
     playEffect(name){
-        
+
     }
     makePoster(page_poster){
         let poster = page_poster.create();
@@ -54,6 +54,7 @@ class Manager{
             p.touchStarted && p.touchStarted();
         }
         this.startedCallback && this.startedCallback();
+        this.preventStarted = false;
     }
     touchEnded(){
         for(let page_name in this.page){

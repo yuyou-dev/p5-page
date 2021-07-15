@@ -42,11 +42,7 @@ class Animation extends Basic{
         this.visible = false;
     }
     playOnce(onceCallback){
-        this.visible = true;
-        this.once = true;
-        this.startTime = millis() - this.currentFrameIndex * 60;
-        this.stopping = false;
-        this.onceCallback = onceCallback;
+        this.play(1,onceCallback);
     }
     play(count = -1, stopCallback){
         this.visible = true;
@@ -73,19 +69,6 @@ class Animation extends Basic{
         this.movedCallback = movedCallback;
         this.endedCallback = endedCallback;
     }
-    touchStarted(){
-        this.checkInside() && this.startedCallback && this.startedCallback();
-    }
-    touchEnded(){
-        if(manager.preventEnded || !this.visible)return;
-        if(this.endedCallback && this.checkInside(this.rect)){
-            manager.preventEnded = true;
-            this.endedCallback();
-        }
-    }
-    touchMoved(){
-        
-    }
     getInfo(){
         let base_sprite = jsonGroup['page']['animation'];
         let info = base_sprite[this.name];
@@ -95,22 +78,15 @@ class Animation extends Basic{
         if(this.stopping)return;
         let frameTime = 100;
         let dt = millis() - this.startTime;
-        if(this.once){
-            if(dt > this.frameCount * frameTime && this.onceCallback){
-                this.onceCallback();
-                this.onceCallback = false;
-            }
-            dt = min(dt,this.frameCount * frameTime);
-            this.frameIndex = floor(dt / frameTime) % this.frameCount;
-        }else{
-            let index = floor(dt / frameTime) % this.frameCount;
-            if (this.count !== -1 && this.frameIndex > index) this.count--;
-            if (this.count !== -1 && this.count === 0) {
-                this.stopCallback && this.stopCallback();
-                this.stopping = true;
-            }
-            this.frameIndex = index;
+
+        let index = floor(dt / frameTime) % this.frameCount;
+        if (this.count !== -1 && this.frameIndex > index) this.count--;
+        if (this.count !== -1 && this.count === 0) {
+            this.stopCallback && this.stopCallback();
+            this.stopping = true;
         }
+        this.frameIndex = index;
+        
         this.currentFrameIndex = (this.frameCount - this.frameIndex) - 1;
 
         if(!this.moving)return;

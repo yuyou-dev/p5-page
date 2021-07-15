@@ -46,6 +46,12 @@ manager.init(function(){
 
         page3.currentPageIndex = 1;
 
+        this.getChild('q1').setTouch(function(){
+            console.log('q1_end')
+        },false,function(){
+            console.log('q1_start')
+        });
+
         let showQuestion = (qIndex) => {
             if(qIndex > 1){
                 for(let i = 1 ; i <= 4 ; i ++){
@@ -86,5 +92,5 @@ manager.init(function(){
         this.getChild('p_4_background').visible = true;
     });
 
-    
+
 });

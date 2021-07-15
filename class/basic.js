@@ -41,6 +41,23 @@ class Basic{
         }
         return false;
     }
+    touchStarted(){
+        if(manager.preventStarted || !this.visible)return;
+        if(this.startedCallback && this.checkInside(this.rect)){
+            manager.preventStarted = true;
+            this.startedCallback();
+        }
+    }
+    touchMoved(){
+
+    }
+    touchEnded(){
+        if(manager.preventEnded || !this.visible)return;
+        if(this.endedCallback && this.checkInside(this.rect)){
+            manager.preventEnded = true;
+            this.endedCallback();
+        }
+    }
     getSprite(name){
         for(let sprite of this.children){
             if(sprite.name == name){
