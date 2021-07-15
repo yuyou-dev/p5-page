@@ -1,6 +1,5 @@
 manager.init(function(){
-
-
+    //
     console.log(this);
     let self = this;
     this.drag(function(){
@@ -68,6 +67,7 @@ manager.init(function(){
                         if(qIndex < 4){
                             showQuestion(qIndex + 1)
                         }else{
+                            
                             page4.show();
                         }
                     }
@@ -91,10 +91,12 @@ manager.init(function(){
         this.getChild('select_save').visible = true;
         this.getChild('p_4_background').visible = true;
 
-        let poster_page = new Poster('test',false);
+        let poster_page = new Poster('page3',true);
+        
         poster_page.addChild(this.getChild('p4_1'));
+        
         manager.makePoster(poster_page);
     });
 
-
+//
 });

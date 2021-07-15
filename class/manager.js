@@ -13,21 +13,21 @@ class Manager{
 
     }
     makePoster(page_poster){
-        let poster = page_poster.create();
+        let poster = page_poster.create();      //canvas
+
         let d = document.getElementById('poster');
         d.style.display = "block";
-        let gl = poster.canvas.getContext("webgl");
+
         let cnv = document.createElement('canvas');
         cnv.width = 750;
         cnv.height = 1240;
 
         let ctx = cnv.getContext('2d');
-        ctx.drawImage(gl.canvas, dstX, dstY, dstWidth, dstHeight);
         var dstX = 0;
         var dstY = 0;
         var dstWidth = ctx.canvas.width;
         var dstHeight = ctx.canvas.height;
-        ctx.drawImage(gl.canvas, dstX, dstY, dstWidth, dstHeight);
+        ctx.drawImage(poster.canvas, dstX, dstY, dstWidth, dstHeight);
         d.src = ctx.canvas.toDataURL();
     }
     drag(callback){
@@ -48,7 +48,14 @@ class Manager{
         this.page[name] = p;
         return p;
     }
+    preventDefault(){
+        this.preventAll = true;
+    }
+    stopPropagation(){
+        this.preventAll = false;
+    }
     touchStarted(){
+        if(this.preventAll)return;
         for(let page_name in this.page){
             let p = this.page[page_name];
             p.touchStarted && p.touchStarted();
@@ -57,6 +64,7 @@ class Manager{
         this.preventStarted = false;
     }
     touchEnded(){
+        if(this.preventAll)return;
         for(let page_name in this.page){
             let p = this.page[page_name];
             p.touchEnded && p.touchEnded();
@@ -65,6 +73,7 @@ class Manager{
         this.preventEnded = false;
     }
     touchMoved(){
+        if(this.preventAll)return;
         for(let page_name in this.page){
             let p = this.page[page_name];
             p.touchMoved && p.touchMoved();

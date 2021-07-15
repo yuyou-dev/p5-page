@@ -23,8 +23,8 @@ class Poster extends Basic{
     create(){
         this.graphics.push();
         this.graphics.translate(-750 / 2,-1240 / 2)
-        for(let sprite of this.children){
-            sprite.render(this.graphics);
+        for(let child of this.children){
+            child.render(this.graphics);
         }
         this.graphics.pop();
         return this.graphics;
