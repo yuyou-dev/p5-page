@@ -36,7 +36,7 @@
     </style>
     <script src='libs/p5.min.js'></script>
     <script src='class/basic.js'></script>
-    <script src='js/manager.js'></script>
+    <script src='class/manager.js'></script>
     <script src='libs/vconsole.min.js'></script>
 </head>
 
@@ -55,7 +55,7 @@
     let tex, tex_config;
     let loadedCount = 0;
 
-    let manager;
+    let manager = new Manager();
 
     function loadingUpdate() {
         loadedCount++;
@@ -74,7 +74,7 @@
         pixelDensity(2);
         createCanvas(windowWidth, windowHeight, WEBGL);
         background(51, 149, 253, 255);
-        manager = new Manager();
+        manager.start();
         loadingFinished = true;
     }
 
@@ -90,12 +90,13 @@
         }
         
 
-        loadJs(baseUrl + 'libs/easing.js', loadingUpdate)
-        loadJs(baseUrl + 'class/shape.js', loadingUpdate)
-        loadJs(baseUrl + 'class/animation.js', loadingUpdate)
-        loadJs(baseUrl + 'class/page.js', loadingUpdate)
-        loadJs(baseUrl + 'class/poster.js', loadingUpdate)
-        loadJs(baseUrl + 'class/text.js', loadingUpdate)
+        loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
+        loadJs(baseUrl + 'class/shape.js', loadingUpdate);
+        loadJs(baseUrl + 'class/animation.js', loadingUpdate);
+        loadJs(baseUrl + 'class/page.js', loadingUpdate);
+        loadJs(baseUrl + 'class/poster.js', loadingUpdate);
+        loadJs(baseUrl + 'class/text.js', loadingUpdate);
+        loadJs(baseUrl + 'js/sketch.js', loadingUpdate);
         jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
     }
     function touchStarted() {
