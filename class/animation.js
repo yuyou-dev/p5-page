@@ -33,6 +33,7 @@ class Animation extends Basic{
             this.frames[i].tex = tex;
         }
         this.startTime = millis();
+        this.frameIndex = 0;
     }
     show(){
         this.visible = true;
@@ -40,18 +41,12 @@ class Animation extends Basic{
     hide(){
         this.visible = false;
     }
-    playOnce(onceCallback){
+    play(count = -1, stopCallback){
         this.visible = true;
-        this.once = true;
         this.startTime = millis() - this.currentFrameIndex * 60;
         this.stopping = false;
-        this.onceCallback = onceCallback;
-    }
-    play(){
-        this.visible = true;
-        this.once = false;
-        this.startTime = millis() - this.currentFrameIndex * 60;
-        this.stopping = false;
+        this.count = count;
+        this.stopCallback = stopCallback;
     }
     moveTo(x,y,callback){
         this.movingStartTime = millis();
@@ -92,15 +87,14 @@ class Animation extends Basic{
         if(this.stopping)return;
         let frameTime = 100;
         let dt = millis() - this.startTime;
-        if(this.once){
-            if(dt > this.frameCount * frameTime && this.onceCallback){
-                this.onceCallback();
-                this.onceCallback = false;
-            }
-            dt = min(dt,this.frameCount * frameTime);
+        let index = floor(dt / frameTime) % this.frameCount;
+        if (this.count !== -1 && this.frameIndex > index) this.count--;
+        if (this.count !== -1 && this.count === 0) {
+            this.stopCallback && this.stopCallback();
+            this.stopping = true;
         }
-        let frameIndex = floor(dt / frameTime) % this.frameCount;
-        this.currentFrameIndex = (this.frameCount - frameIndex) - 1;
+        this.frameIndex = index;
+        this.currentFrameIndex = (this.frameCount - this.frameIndex) - 1;
 
         if(!this.moving)return;
         dt = millis() - this.movingStartTime;
