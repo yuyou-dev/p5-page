@@ -16,7 +16,7 @@ class Manager{
         let poster = page_poster.create();
         let d = document.getElementById('poster');
         d.style.display = "block";
-        gl = poster.canvas.getContext("webgl");
+        let gl = poster.canvas.getContext("webgl");
         let cnv = document.createElement('canvas');
         cnv.width = 750;
         cnv.height = 1240;

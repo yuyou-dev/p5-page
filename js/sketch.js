@@ -90,6 +90,10 @@ manager.init(function(){
         this.getChild('p4_1').visible = true;
         this.getChild('select_save').visible = true;
         this.getChild('p_4_background').visible = true;
+
+        let poster_page = new Poster('test',false);
+        poster_page.addChild(this.getChild('p4_1'));
+        manager.makePoster(poster_page);
     });
 
 

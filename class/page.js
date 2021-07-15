@@ -27,7 +27,6 @@ class Page extends Basic{
         this.children.sort((a, b) => a.info.z - b.info.z);
         this.visible = true;
     }
-
     setTouch(name,endedCallback,movedCallback,startedCallback){
         let btn = this.getChild(name);
         btn.setTouch(endedCallback,movedCallback,startedCallback);

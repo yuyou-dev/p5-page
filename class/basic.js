@@ -59,12 +59,7 @@ class Basic{
         }
     }
     getSprite(name){
-        for(let sprite of this.children){
-            if(sprite.name == name){
-                return sprite;
-            }
-        }
-        return false;
+        return this.getChild(name);
     }
     checkInside(){
         let s = this.getScale();
@@ -81,6 +76,10 @@ class Basic{
             return true;
         }
         return false;
+    }
+    addChild(child){
+        this.children.push(child);
+        this.children.sort((a, b) => a.info.z - b.info.z);
     }
     getChild(name){
         for(let child of this['children']){

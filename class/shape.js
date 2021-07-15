@@ -35,7 +35,7 @@ class Shape extends Basic{
         this.moving = true;
         this.duration = duration;
 
-        this.fromRect =[this.rect[0],this.rect[1],this.rect[2],this.rect[3]];
+        this.fromRect = [this.rect[0],this.rect[1],this.rect[2],this.rect[3]];
         this.targetRect = [this.rect[0] + dx,this.rect[1] + dy,this.rect[2],this.rect[3]];
 
         this.movingCallback = callback;
@@ -43,7 +43,7 @@ class Shape extends Basic{
     moveTo(x,y,callback){
         this.movingStartTime = millis();
         this.moving = true;
-        this.fromRect = this.rect;
+        this.fromRect = [this.rect[0],this.rect[1],this.rect[2],this.rect[3]];
         this.targetRect = [x,y,this.rect[2],this.rect[3]];
 
         this.movingCallback = callback;
@@ -141,7 +141,7 @@ class Shape extends Basic{
             this.movingCallback && this.movingCallback();
         }
     }
-    render(center = false){
+    render(pg = false,center = false){
         if(this.visible == false)return;
         if(this.moving){
             this.update();
@@ -158,18 +158,22 @@ class Shape extends Basic{
         let sy = _frame.y;
         let sw = _frame.w;
         let sh = _frame.h;
-        push();
         let op = this.opacity * 255;
         if(this.parent && this.parent.opacity){
             op *= this.parent.opacity;
         }
-        tint(255,op);
-        if(center){
-            image(tex,x - w,y - h,w,h,sx,sy,sw,sh);
+        if(pg){
+            pg.push();
+            pg.tint(255,op);
+            pg.image(tex,x - w / 2,y - h / 2,w,h,sx,sy,sw,sh);
+            pg.noTint();
+            pg.pop();
         }else{
+            push();
+            tint(255,op);
             image(tex,x - w / 2,y - h / 2,w,h,sx,sy,sw,sh);
+            noTint();
+            pop();
         }
-        noTint();
-        pop();
     }
 }
