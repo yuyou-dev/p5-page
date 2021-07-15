@@ -106,7 +106,7 @@ class Shape extends Basic{
         this.endedCallback = endedCallback;
     }
     touchStarted(){
-        if(manager.preventEnded || !this.visible)return;
+        if(manager.preventStarted || !this.visible)return;
         if(this.startedCallback && this.checkInside(this.rect)){
             manager.preventStarted = true;
             this.startedCallback();
