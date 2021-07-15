@@ -37,3 +37,10 @@ item.moveBy(dx,dy,duration)
 item.moveBy(100,100)
 item.moveBy(100,100,600)    //从现有位置，移动(100,100)距离，移动时间：600毫秒
 ```
+
+### 海报生成
+```javascript
+let poster_page = new Poster('page3',true);
+poster_page.addChild(this.getChild('p4_1'));
+manager.makePoster(poster_page);
+```
