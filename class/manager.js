@@ -1,7 +1,10 @@
 class Manager{
     constructor(){
         this.page = {};
-        this.status = 0;
+        var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+        this.isWeibo = ua.match(/WeiBo/i) == "weibo";
+        this.isWeChat = ua.match(/MicroMessenger/i) == "micromessenger";
+        this.isX = window.innerWidth / window.innerHeight < 670 / 1240;
     }
     start(){
         this.initCallback && this.initCallback();
@@ -53,6 +56,10 @@ class Manager{
     }
     stopPropagation(){
         this.preventAll = false;
+    }
+    isiOS () {
+        var agent = navigator.userAgent;
+        return !!agent.match(/iPhone|mac|iPod|iPad|ios/i);
     }
     touchStarted(){
         if(this.preventAll)return;
