@@ -80,7 +80,6 @@
     }
 
     function preload() {
-        
         for (let i = 0; i < 25; i++) {
             let tex = loadImage(baseUrl + 'res/s' + i + '.webp', loadingUpdate);
             let tex_config = loadJSON(baseUrl + 'res/s' + i + '.json', loadingUpdate);
@@ -89,7 +88,6 @@
                 config: tex_config
             });
         }
-        
 
         loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
         loadJs(baseUrl + 'class/shape.js', loadingUpdate);

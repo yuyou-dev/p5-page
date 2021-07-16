@@ -44,18 +44,16 @@ class Manager {
             self.startY = mouseY;
         });
     }
-    slide(leftCallback,rightCallback) {
+    slide(leftCallback, rightCallback) {
         let self = this;
         this.setTouch(function () {
-            let distance=mouseX - self.startX;
-            if(distance > 50){
+            let distance = mouseX - self.startX;
+            if (distance > 50) {
                 rightCallback && rightCallback();
-            }else if(distance < -50){
+            } else if (distance < -50) {
                 leftCallback && leftCallback();
             }
-        },
-        false,
-        function () {
+        }, false, function () {
             self.startX = mouseX;
         });
     }
