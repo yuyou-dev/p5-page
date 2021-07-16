@@ -111,7 +111,7 @@
         }
     }
     function touchEnded() {
-        if (manager && !manager.poster_show && manager.touchEnded) {
+        if (manager && manager.touchEnded) {
             manager.touchEnded();
             return false;
         }
