@@ -44,6 +44,21 @@ class Manager {
             self.startY = mouseY;
         });
     }
+    slide(leftCallback,rightCallback) {
+        let self = this;
+        this.setTouch(function () {
+            let distance=mouseX - self.startX;
+            if(distance > 50){
+                rightCallback && rightCallback();
+            }else if(distance < -50){
+                leftCallback && leftCallback();
+            }
+        },
+        false,
+        function () {
+            self.startX = mouseX;
+        });
+    }
     setPage(name, adaptiveType = 'normal', callback, once = true) {
         let p = new Page(name);
         p.visible = false;
