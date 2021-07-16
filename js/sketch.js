@@ -96,6 +96,7 @@ manager.init(function(){
         
         poster_page.addChild(this.getChild('p4_1'));
         
+        manager.poster_show = true;
         manager.makePoster(poster_page);
     });
 

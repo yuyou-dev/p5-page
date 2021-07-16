@@ -99,16 +99,22 @@
         jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
     }
     function touchStarted() {
-        manager && manager.touchStarted();
-        return false;
+        if (manager && !manager.poster_show && manager.touchStarted) {
+            manager.touchStarted();
+            return false;
+        }
     }
     function touchMoved() {
-        manager && manager.touchMoved();
-        return false;
+        if (manager && !manager.poster_show && manager.touchMoved) {
+            manager.touchMoved();
+            return false;
+        }
     }
     function touchEnded() {
-        manager && manager.touchEnded();
-        return false;
+        if (manager && !manager.poster_show && manager.touchEnded) {
+            manager.touchEnded();
+            return false;
+        }
     }
     function windowResized() {
         resizeCanvas(windowWidth, windowHeight);
