@@ -149,10 +149,7 @@ class Shape extends Basic{
         let _rect = this.rect;
         let _frame = this.frame;
         let tex = this.tex;
-        let x = _rect[0];
-        let y = _rect[1];
-        let w = _rect[2];
-        let h = _rect[3];
+        let [x,y,w,h] = _rect;
 
         let sx = _frame.x;
         let sy = _frame.y;

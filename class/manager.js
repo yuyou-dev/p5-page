@@ -1,18 +1,21 @@
-class Manager{
-    constructor(){
+class Manager {
+    constructor() {
         this.page = {};
-        this.status = 0;
+        var ua = navigator.userAgent.toLowerCase(); //获取判断用的对象
+        this.isWeibo = ua.match(/WeiBo/i) == "weibo";
+        this.isWeChat = ua.match(/MicroMessenger/i) == "micromessenger";
+        this.isX = window.innerWidth / window.innerHeight < 670 / 1240;
     }
-    start(){
+    start() {
         this.initCallback && this.initCallback();
     }
-    init(callback){
+    init(callback) {
         this.initCallback = callback;
     }
-    playEffect(name){
+    playEffect(name) {
 
     }
-    makePoster(page_poster){
+    makePoster(page_poster) {
         let poster = page_poster.create();      //canvas
 
         let d = document.getElementById('poster');
@@ -30,85 +33,89 @@ class Manager{
         ctx.drawImage(poster.canvas, dstX, dstY, dstWidth, dstHeight);
         d.src = ctx.canvas.toDataURL();
     }
-    drag(callback){
-        this.setTouch(function(){
+    drag(callback) {
+        let self = this;
+        this.setTouch(function () {
             let distance = mouseY - self.startY;
-            if(distance > 10){
+            if (distance > 10) {
                 callback && callback();
             }
-        },false,function(){
+        }, false, function () {
             self.startY = mouseY;
         });
     }
     slide(leftCallback,rightCallback) {
-        this.setTouch(
-          function () {
+        let self = this;
+        this.setTouch(function () {
             let distance=mouseX - self.startX;
-            if(distance>50){
-              rightCallback && rightCallback();
+            if(distance > 50){
+                rightCallback && rightCallback();
             }else if(distance < -50){
-              leftCallback && leftCallback();
+                leftCallback && leftCallback();
             }
-          },
-          false,
-          function () {
+        },
+        false,
+        function () {
             self.startX = mouseX;
-          }
-        );
-      }
-    setPage(name,adaptiveType = 'normal',callback,once = true){
+        });
+    }
+    setPage(name, adaptiveType = 'normal', callback, once = true) {
         let p = new Page(name);
         p.visible = false;
         p.adaptiveType = adaptiveType
-        p.setShowCallback(callback,once);
+        p.setShowCallback(callback, once);
         this.page[name] = p;
         return p;
     }
-    preventDefault(){
+    preventDefault() {
         this.preventAll = true;
     }
-    stopPropagation(){
+    stopPropagation() {
         this.preventAll = false;
     }
-    touchStarted(){
-        if(this.preventAll)return;
-        for(let page_name in this.page){
+    isiOS() {
+        var agent = navigator.userAgent;
+        return !!agent.match(/iPhone|mac|iPod|iPad|ios/i);
+    }
+    touchStarted() {
+        if (this.preventAll) return;
+        for (let page_name in this.page) {
             let p = this.page[page_name];
             p.touchStarted && p.touchStarted();
         }
         this.startedCallback && this.startedCallback();
         this.preventStarted = false;
     }
-    touchEnded(){
-        if(this.preventAll)return;
-        for(let page_name in this.page){
+    touchEnded() {
+        if (this.preventAll) return;
+        for (let page_name in this.page) {
             let p = this.page[page_name];
             p.touchEnded && p.touchEnded();
         }
         this.endedCallback && this.endedCallback();
         this.preventEnded = false;
     }
-    touchMoved(){
-        if(this.preventAll)return;
-        for(let page_name in this.page){
+    touchMoved() {
+        if (this.preventAll) return;
+        for (let page_name in this.page) {
             let p = this.page[page_name];
             p.touchMoved && p.touchMoved();
         }
         this.movedCallback && this.movedCallback();
     }
-    setTouch(endedCallback,movedCallback,startedCallback){
+    setTouch(endedCallback, movedCallback, startedCallback) {
         this.endedCallback = endedCallback;
         this.movedCallback = movedCallback;
         this.startedCallback = startedCallback;
     }
-    update(){
+    update() {
 
     }
-    resizeUpdate(){
-        
+    resizeUpdate() {
+
     }
-    render(){
-        for(let page_name in this.page){
+    render() {
+        for (let page_name in this.page) {
             let p = this.page[page_name];
             p.render();
         }
