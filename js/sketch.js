@@ -52,6 +52,7 @@ manager.init(function(){
         });
 
         let showQuestion = (qIndex) => {
+
             if(qIndex > 1){
                 for(let i = 1 ; i <= 4 ; i ++){
                     page3.getChild('q' + (qIndex - 1) + "_" + i).visible = false;
