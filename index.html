@@ -36,8 +36,8 @@
     </style>
     <link rel="stylesheet" href="css/style.css">
     <script src='libs/p5.min.js'></script>
-    <script src='class/basic.js'></script>
-    <script src='class/manager.js'></script>
+    <script src='class/Basic.js'></script>
+    <script src='class/Manager.js'></script>
     <script src='libs/vconsole.min.js'></script>
 </head>
 
@@ -48,6 +48,7 @@
     <image id="poster"></image>
 </body>
 <script>
+    let v = new VConsole();
     let baseUrl = "";
     let page;
 
@@ -71,6 +72,7 @@
             this.removeEventListener('load', arguments.callee, false);
         });
     }
+    let vid;
     function setup() {
         pixelDensity(2);
         createCanvas(windowWidth, windowHeight, WEBGL);
@@ -90,11 +92,12 @@
         }
 
         loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
-        loadJs(baseUrl + 'class/shape.js', loadingUpdate);
-        loadJs(baseUrl + 'class/animation.js', loadingUpdate);
-        loadJs(baseUrl + 'class/page.js', loadingUpdate);
-        loadJs(baseUrl + 'class/poster.js', loadingUpdate);
-        loadJs(baseUrl + 'class/text.js', loadingUpdate);
+        loadJs(baseUrl + 'class/Shape.js', loadingUpdate);
+        loadJs(baseUrl + 'class/Animation.js', loadingUpdate);
+        loadJs(baseUrl + 'class/Page.js', loadingUpdate);
+        loadJs(baseUrl + 'class/Poster.js', loadingUpdate);
+        loadJs(baseUrl + 'class/ImageText.js', loadingUpdate);
+        loadJs(baseUrl + 'class/Paragraph.js', loadingUpdate);
         loadJs(baseUrl + 'js/sketch.js', loadingUpdate);
         jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
     }
@@ -110,11 +113,21 @@
             return false;
         }
     }
+    let vvid;
     function touchEnded() {
+        //vvid = createVideo(['res/video/rs_1.mp4']);
+        //console.log(vvid.elt);
+        //vvid.elt.setAttribute('x5-video-player-type','h5');
+        //vvid.elt.setAttribute('x5-video-player-fullscreen','true');
+        //vvid.elt.setAttribute('playsinline','true');
+        //vvid.hide();
+        //vvid.loop();
+        
         if (manager && manager.touchEnded) {
             manager.touchEnded();
             return false;
         }
+        
     }
     function windowResized() {
         resizeCanvas(windowWidth, windowHeight);
@@ -123,6 +136,9 @@
     function draw() {
         background(51, 149, 253)
         manager.render();
+        if(vvid){
+            //image(vvid,0,0,300,300)
+        }
     }
     
 </script>

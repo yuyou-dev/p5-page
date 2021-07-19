@@ -7,8 +7,11 @@ manager.init(function(){
             case 1:
                 self.page['page3'].show(['q1']);
                 self.status = 2;
+                
                 break;
             case 2:
+                //self.page['page3'].video.loop();
+                //console.log(self.page['page3'].video)
                 self.page['page3'].getChild('q1').moveBy(100,100,function(){
                     console.log(12)
                 });
@@ -18,6 +21,16 @@ manager.init(function(){
     let page1 = this.setPage('page1','center',function(){
         this.hideAll();
         this.getChild('p_1').play();
+
+
+        let p = new Paragraph("哈哈哈哈哈",20,20,375,100);
+        p.setColor('#ffcc00')
+        
+        this.addChild(p);
+        let textRender1 = new ImageText('num_1', 30);
+        this.addTextConfig('n1', textRender1);
+        this.textTo('n1',"150%",300,300);
+
         for(let i = 1 ; i <= 5 ; i ++){
             setTimeout(function(_i){
                 return () => {
@@ -36,12 +49,24 @@ manager.init(function(){
 
     let page2 = this.setPage('page2','center',function(){
         console.log('page2 start');
+
+
     });
     this.answerGroup = [0,0,0,0]
     let page3 = this.setPage('page3','center',function(){
         console.log("page_3_start")
         this.hideAll();
-        this.getChild('p_3').play();
+        //this.getChild('p_3').play();
+
+
+        /*
+        vid = createVideo(['res/video/rs_1.mp4'],function(){
+            console.log("1234")
+        });
+        */
+       // vid.hide();
+
+        this.video = vid;
 
         page3.currentPageIndex = 1;
 

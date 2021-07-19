@@ -26,6 +26,17 @@ class Page extends Basic{
         }
         this.children.sort((a, b) => a.info.z - b.info.z);
         this.visible = true;
+        this.textRenderGroup = {};
+    }
+    addTextConfig(name,textRender){
+        
+        this.textRenderGroup[name] = textRender;
+    }
+    textTo(name,t,x,y){
+        this.textRenderGroup[name].fitText(t,x,y);
+    }
+    addText(name,txt,x,y,w,h){
+
     }
     setTouch(name,endedCallback,movedCallback,startedCallback){
         let btn = this.getChild(name);
@@ -90,7 +101,14 @@ class Page extends Basic{
         for(let sprite of this.children){
             sprite.render();
         }
+        for(let name in this.textRenderGroup){
+            let textRender = this.textRenderGroup[name];
+            textRender.render(false,-1);
+        }
 
+        if(this.video){
+            image(this.video,300,300,200,200,375,0,750,1240);
+        }
         pop();
     }
 }

@@ -78,6 +78,11 @@ class Basic{
         return false;
     }
     addChild(child){
+        if(!child.info){
+            child.info = {
+                z:this.children.slice(-1)[0].info.z + 1
+            }
+        }
         this.children.push(child);
         this.children.sort((a, b) => a.info.z - b.info.z);
     }
