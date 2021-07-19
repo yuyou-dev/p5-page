@@ -23,7 +23,7 @@ manager.init(function(){
         this.getChild('p_1').play();
 
 
-        let p = new Paragraph("哈哈哈哈哈",20,20,375,100);
+        let p = new Paragraph("哈哈哈哈哈",50,50,375,100);
         p.setColor('#ffcc00')
         
         this.addChild(p);
