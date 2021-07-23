@@ -65,22 +65,12 @@ class Manager {
         p.setShowCallback(callback, once);
         this.page[name] = p;
         p.zIndex = this.zIndex;
-        this.zIndex++;
-        if(this.pagelist.length > 0 ){
-            this.pagelist.splice(0,0,p);
-        }else{
-            this.pagelist.push(p);
-        }
+        this.pagelist.push(p);
         return p;
     }
-    proPageIndex(page){
-        page.zIndex = this.zIndex;
-        this.zIndex++;
-        let num = this.pagelist.indexOf(page);
-        this.pagelist.splice(num,1);
-        this.pagelist.splice(0,0,page);
-        console.log(page.name,page.zIndex);
-
+    pageSort(){
+        this.pagelist.sort((a, b) => a.zIndex - b.zIndex);
+        this.zIndex = this.pagelist[0].zIndex+1;
     }
     // 播放音乐
     playMusic(id) {
@@ -168,7 +158,7 @@ class Manager {
         this.startedCallback = startedCallback;
     }
     update() {
-
+        this.pageSort();
     }
     resizeUpdate() {
 
@@ -218,6 +208,7 @@ class Manager {
         });
     }
     render() {
+        this.update();
         for(let n = this.pagelist.length-1; n >= 0; n--){
             let p = this.pagelist[n];
             p.render();
