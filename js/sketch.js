@@ -23,13 +23,15 @@ manager.init(function(){
         this.getChild('p_1').play();
 
 
-        let p = new Paragraph("哈哈哈哈哈",50,50,375,100);
-        p.setColor('#ffcc00')
+        let p = new Paragraph("哈哈哈哈哈",50,100,375,100,200,200);
+        p.setColor('#ffcc00');
         
         this.addChild(p);
+
+
         let textRender1 = new ImageText('num_1', 30);
         this.addTextConfig('n1', textRender1);
-        this.textTo('n1',"150%",300,300);
+        this.textTo('n1',"150123123123123%",300,300);
 
         for(let i = 1 ; i <= 5 ; i ++){
             setTimeout(function(_i){
