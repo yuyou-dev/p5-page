@@ -44,3 +44,7 @@ let poster_page = new Poster('page3',true);
 poster_page.addChild(this.getChild('p4_1'));
 manager.makePoster(poster_page);
 ```
+
+### 段落文字
+```javascript
+```
