@@ -65,6 +65,7 @@ class Page extends Basic{
         }
     }
     show(items = false){
+        manager.proPageIndex(this);
         this.visible = true;
         this.showCallback && this.showCallback();
         if(this.showOnce){

@@ -7,6 +7,8 @@ class Manager {
         this.isX = window.innerWidth / window.innerHeight < 670 / 1240;
         this.musicName='music_bg';
         this.isMusicOpened=true;
+        this.pagelist=[];
+        this.zIndex=1;
     }
     start() {
         this.initCallback && this.initCallback();
@@ -62,7 +64,23 @@ class Manager {
         p.adaptiveType = adaptiveType
         p.setShowCallback(callback, once);
         this.page[name] = p;
+        p.zIndex = this.zIndex;
+        this.zIndex++;
+        if(this.pagelist.length > 0 ){
+            this.pagelist.splice(0,0,p);
+        }else{
+            this.pagelist.push(p);
+        }
         return p;
+    }
+    proPageIndex(page){
+        page.zIndex = this.zIndex;
+        this.zIndex++;
+        let num = this.pagelist.indexOf(page);
+        this.pagelist.splice(num,1);
+        this.pagelist.splice(0,0,page);
+        console.log(page.name,page.zIndex);
+
     }
     // 播放音乐
     playMusic(id) {
@@ -200,8 +218,8 @@ class Manager {
         });
     }
     render() {
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.render();
         }
     }
