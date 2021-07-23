@@ -195,7 +195,6 @@ class Manager {
             success: success1,
             cancel: cancel
         });
-
         wx && wx.onMenuShareAppMessage({
             title: title,
             desc: desc,

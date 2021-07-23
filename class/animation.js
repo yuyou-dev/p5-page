@@ -9,7 +9,6 @@ class Animation extends Basic{
         this.frameCount = this.info.length;
         this.frames = this.info.frames;
         this.currentFrameIndex = 0;
-
         this.parent = parent;
         this.type = type;
 

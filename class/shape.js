@@ -127,7 +127,6 @@ class Shape extends Basic{
         }else{
             amt = min(1,lerp(0,1,this.ease(dt / this.duration)));
         }
-
         for(let i in this.rect){
             let dv = this.targetRect[i] - this.fromRect[i];
             this.rect[i] = this.fromRect[i] + dv * amt;

@@ -4,7 +4,6 @@ class Poster extends Basic{
         this.graphics = createGraphics(750,1240,WEBGL);
         this.graphics.pixelDensity(1);
         this.name = name;
-
         if(fromPage){
             let layer = jsonGroup['page']['layer'];
             let l = layer[name];

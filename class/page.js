@@ -36,7 +36,6 @@ class Page extends Basic{
         this.textRenderGroup[name].fitText(t,x,y);
     }
     addText(name,txt,x,y,w,h){
-
     }
     setTouch(name,endedCallback,movedCallback,startedCallback){
         let btn = this.getChild(name);
