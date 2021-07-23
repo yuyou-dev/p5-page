@@ -22,7 +22,7 @@ class Paragraph extends Basic{
     render(pg = false){
         let line_height = this.line_height;
         let left = 0;
-        let top = 0;
+        let top = 5;
         let max_w = this.w;
         this.pg.push();
         this.pg.fill(this.color)
