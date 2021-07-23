@@ -44,9 +44,9 @@ class Paragraph extends Basic{
         }
         this.pg.pop();
         if(pg){
-            pg.image(this.pg,this.x,this.y-5)
+            pg.image(this.pg,this.x,this.y)
         }else{
-            image(this.pg,this.x,this.y-5);
+            image(this.pg,this.x,this.y);
         }
     }
 }
