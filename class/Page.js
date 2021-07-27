@@ -44,14 +44,14 @@ class Page extends Basic{
     }
     touchStarted(){
         if(this.visible == false)return;
-        for(let i = this.children-1;i>=0;i--){
+        for(let i = this.children.length-1;i>=0;i--){
             let sprite = this.children[i];
             sprite.touchStarted();
         }
     }
     touchEnded(){
         if(this.visible == false)return;
-        for(let i = this.children-1;i>=0;i--){
+        for(let i = this.children.length-1;i>=0;i--){
             let sprite = this.children[i];
             sprite.touchEnded();
         }
