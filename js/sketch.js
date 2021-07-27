@@ -33,6 +33,9 @@ manager.init(function(){
         this.addTextConfig('n1', textRender1);
         this.textTo('n1',"150123123123123%",300,300);
 
+        let inp = new InputItem(100,100,this);
+        this.addChild(inp);
+
         for(let i = 1 ; i <= 5 ; i ++){
             setTimeout(function(_i){
                 return () => {

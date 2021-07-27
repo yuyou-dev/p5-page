@@ -175,8 +175,8 @@ class Manager {
             return;
         }
 
-        let link = link?link:h5_config.baseLink + h5_config.para;
-        let imgUrl = imgUrl?imgUrl:(h5_config.baseUrl || h5_config.baseLink) + 'images/icon.jpg';
+        link = link?link:h5_config.baseLink + h5_config.para;
+        imgUrl = imgUrl?imgUrl:(h5_config.baseUrl || h5_config.baseLink) + 'images/icon.jpg';
         let success1 = function () {
             //share timeline callback
             self.log("share_times",'share');
