@@ -50,7 +50,8 @@ class Page extends Basic{
     }
     touchEnded(){
         if(this.visible == false)return;
-        for(let sprite of this.children){
+        for(let i = this.children-1;i>=0;i--){
+            let sprite = this.children[i];
             sprite.touchEnded();
         }
     }
