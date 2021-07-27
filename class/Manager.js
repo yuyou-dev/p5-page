@@ -137,8 +137,8 @@ class Manager {
     }
     touchEnded() {
         if (this.preventAll) return;
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.touchEnded && p.touchEnded();
         }
         this.endedCallback && this.endedCallback();
@@ -208,9 +208,8 @@ class Manager {
     }
     render() {
         this.update();
-        for(let n = this.pagelist.length-1; n >= 0; n--){
-            let p = this.pagelist[n];
-            p.render();
+        for(let page_name of this.pagelist){
+            page_name.render();
         }
     }
 }
