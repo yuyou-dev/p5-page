@@ -128,8 +128,8 @@ class Manager {
     }
     touchStarted() {
         if (this.preventAll) return;
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.touchStarted && p.touchStarted();
         }
         this.startedCallback && this.startedCallback();
@@ -146,8 +146,8 @@ class Manager {
     }
     touchMoved() {
         if (this.preventAll) return;
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.touchMoved && p.touchMoved();
         }
         this.movedCallback && this.movedCallback();
