@@ -87,12 +87,14 @@ class Page extends Basic{
     update(){
 
     }
+    resizeUpdate(){
+        this.ss = this.getScale()
+    }
     render(){
         this.scheduleUpdate && this.scheduleUpdate();
         if(!this.visible)return;
-        let s = this.getScale()
         push();
-        scale(s);
+        scale(ss);
         translate(-750 / 2,-1240 / 2)
         if(this.background){
             let b = this.background;
