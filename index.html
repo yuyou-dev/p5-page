@@ -114,6 +114,7 @@
         background(51, 149, 253, 255);
         manager.start();
         loadingFinished = true;
+        windowResized();
     }
 
     function preload() {
@@ -166,7 +167,6 @@
         
     }
     function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
         manager.resizeUpdate();
     }
     function draw() {

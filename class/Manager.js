@@ -8,6 +8,7 @@ class Manager {
         this.musicName='music_bg';
         this.isMusicOpened=true;
         this.pagelist=[];
+        this.canResize = true;
         this.zIndex=1;
     }
     start() {
@@ -128,8 +129,8 @@ class Manager {
     }
     touchStarted() {
         if (this.preventAll) return;
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.touchStarted && p.touchStarted();
         }
         this.startedCallback && this.startedCallback();
@@ -146,8 +147,8 @@ class Manager {
     }
     touchMoved() {
         if (this.preventAll) return;
-        for (let page_name in this.page) {
-            let p = this.page[page_name];
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
             p.touchMoved && p.touchMoved();
         }
         this.movedCallback && this.movedCallback();
@@ -161,7 +162,12 @@ class Manager {
         this.pageSort();
     }
     resizeUpdate() {
-
+        if(!this.canResize) return;
+        resizeCanvas(windowWidth, windowHeight);
+        for(let n = this.pagelist.length-1; n >= 0; n--){
+            let p = this.pagelist[n];
+            p.resizeUpdate();
+        }
     }
     log(type,action) {
         _hmt && _hmt.push(['_trackEvent', type+'_fr='+h5_config.fr, action]);

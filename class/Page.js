@@ -44,13 +44,14 @@ class Page extends Basic{
     }
     touchStarted(){
         if(this.visible == false)return;
-        for(let sprite of this.children){
+        for(let i = this.children.length-1;i>=0;i--){
+            let sprite = this.children[i];
             sprite.touchStarted();
         }
     }
     touchEnded(){
         if(this.visible == false)return;
-        for(let i = this.children-1;i>=0;i--){
+        for(let i = this.children.length-1;i>=0;i--){
             let sprite = this.children[i];
             sprite.touchEnded();
         }
@@ -86,12 +87,14 @@ class Page extends Basic{
     update(){
 
     }
+    resizeUpdate(){
+        this.ss = this.getScale()
+    }
     render(){
         this.scheduleUpdate && this.scheduleUpdate();
         if(!this.visible)return;
-        let s = this.getScale()
         push();
-        scale(s);
+        scale(ss);
         translate(-750 / 2,-1240 / 2)
         if(this.background){
             let b = this.background;
