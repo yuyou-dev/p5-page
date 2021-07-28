@@ -10,7 +10,7 @@ class InputItem extends Basic{
         this.h = h;
         this.s = 1;
         this.size = 24;
-        this.rect = this.getRect(x,y,this.w,this.h);
+        this.rect = this.fixRect(x,y,this.w,this.h);
         this.input.elt.addEventListener('focus',this.focus)
         this.input.elt.onblur = this.onblur;
         this.input.input(this.entering);
@@ -97,7 +97,7 @@ class InputItem extends Basic{
     setId(id){
         this.input.id(id);
     }
-    getRect(x,y,w,h){
+    fixRect(x,y,w,h){
         let x0 = x+w/2;
         let y0 = y+h/2
         return [x0,y0,w,h];
@@ -107,7 +107,7 @@ class InputItem extends Basic{
         this.y = y - 1240/2;
         this.w = w;
         this.h = h;
-        this.getRect(x,y,w,h);
+        this.rect = this.fixRect(x+w/2,y+h/2,w,h);
     }
     clear(){
         this.input.value('');
