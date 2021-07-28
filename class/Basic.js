@@ -86,6 +86,18 @@ class Basic{
         this.children.push(child);
         this.children.sort((a, b) => a.info.z - b.info.z);
     }
+    removeSelf(){
+        if(this.parent){
+            for(let i in this.parent.children){
+                let child = this.parent.children[i];
+                if(child.name === this.name){
+                    this.parent.children.splice(i,1);
+                    this.visible = false;
+                    return;
+                }
+            }
+        }
+    }
     getChild(name){
         for(let child of this['children']){
             if(child.name == name){
