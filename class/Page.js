@@ -94,7 +94,7 @@ class Page extends Basic{
         this.scheduleUpdate && this.scheduleUpdate();
         if(!this.visible)return;
         push();
-        scale(ss);
+        scale(this.ss);
         translate(-750 / 2,-1240 / 2)
         if(this.background){
             let b = this.background;
