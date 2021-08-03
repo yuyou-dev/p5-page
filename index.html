@@ -37,6 +37,7 @@
             width: 100%;
             height: 100%;
         }
+   
     </style>
     <link rel="stylesheet" href="css/style.css">
     <script src="class/Loader.js"></script>
@@ -51,6 +52,8 @@
         <canvas id="loading"></canvas>
     </div>
     <image id="poster"></image>
+    <div id="container_video"></div>
+
 </body>
 <script>
      let h5_config = {
@@ -103,7 +106,7 @@
         loader.update();
     }
 
-    loader.render();
+    // loader.render();
 
     
 
@@ -128,26 +131,32 @@
         }
 
         h5_config.loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'libs/Sound.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'libs/Video.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/Shape.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/Animation.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/Page.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/Poster.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/ImageText.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'class/Paragraph.js', loadingUpdate);
-        h5_config.loadJs(baseUrl + 'class/Input.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/InputItem.js', loadingUpdate);
         h5_config.loadJs(baseUrl + 'js/sketch.js', loadingUpdate);
         jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
     }
     function touchStarted() {
         if (manager && !manager.poster_show && manager.touchStarted) {
             manager.touchStarted();
-            return false;
+            if(!manager.focused){
+                return false;
+            }
         }
     }
     function touchMoved() {
         if (manager && !manager.poster_show && manager.touchMoved) {
             manager.touchMoved();
-            return false;
+            if(!manager.focused){
+                return false;
+            }
         }
     }
     let vvid;
@@ -162,7 +171,9 @@
         
         if (manager && manager.touchEnded) {
             manager.touchEnded();
-            return false;
+            if(!manager.focused){
+                return false;
+            }
         }
         
     }
