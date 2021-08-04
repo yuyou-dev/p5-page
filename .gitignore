@@ -1,3 +1,5 @@
 node_modules/
 assets/page/
 res/
+node/upload_cos.js
+publish/

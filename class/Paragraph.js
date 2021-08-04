@@ -12,6 +12,8 @@ class Paragraph extends Basic{
         this.pg.pixelDensity(1);
         this.text = text;
         this.color = "#ffffff";
+        this.visible = true;
+        this.style = ""
     }
     setColor(c){
         this.color = c;
@@ -20,14 +22,16 @@ class Paragraph extends Basic{
         
     }
     render(pg = false){
+        if(!this.visible)return;
         let line_height = this.line_height;
         let left = 0;
-        let top = 0;
+        let top = 5;
         let max_w = this.w;
         this.pg.push();
         this.pg.fill(this.color)
         this.pg.clear();
         this.pg.textSize(this.size);
+        this.pg.textStyle(this.style)
         for(let c of this.text){
             let w = this.pg.textWidth(c);
             this.pg.textAlign(LEFT,TOP)
@@ -44,6 +48,5 @@ class Paragraph extends Basic{
         }else{
             image(this.pg,this.x,this.y);
         }
-        
     }
 }

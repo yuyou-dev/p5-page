@@ -33,8 +33,13 @@
             display: block;
             background: #5da7f6;
         }
+        #p5_loading canvas {
+            width: 100%;
+            height: 100%;
+        }
     </style>
     <link rel="stylesheet" href="css/style.css">
+    <script src="class/Loader.js"></script>
     <script src='libs/p5.min.js'></script>
     <script src='class/Basic.js'></script>
     <script src='class/Manager.js'></script>
@@ -43,11 +48,43 @@
 
 <body>
     <div id="p5_loading">
-
+        <canvas id="loading"></canvas>
     </div>
     <image id="poster"></image>
 </body>
 <script>
+     let h5_config = {
+        baseUrl: '',
+        baseLink: 'https://m.h5in.net/web2020',
+        para: '',
+        key:'abc123',
+        ukey:'user123',
+        startTime:new Date().getTime(),
+        wxConfig: {
+            // 配置信息, 即使不正确也能使用 wx.ready
+            debug: false,
+            appId: '',
+            timestamp: 1,
+            nonceStr: '',
+            signature: '',
+            jsApiList: []
+        },
+        nickname:'昵称昵称昵称昵称昵称',
+        headimgurl:'',
+        visitCount:10330,
+        titleArr: ['web2020'],
+        descArr: ['新模版'],
+        loadJs: function (url,callback) {
+            var script = document.createElement("script");
+            script.src = url;
+            document.body.appendChild(script);
+            script.addEventListener("load", function () {
+                script.parentNode.removeChild(script);
+                callback && callback();
+                this.removeEventListener('load', arguments.callee, false);
+            });
+        }
+    };
     let v = new VConsole();
     let baseUrl = "";
     let page;
@@ -58,20 +95,18 @@
     let loadedCount = 0;
 
     let manager = new Manager();
+    let canvas = document.getElementById('loading');
+    let loader = new Loader(canvas);
 
     function loadingUpdate() {
         loadedCount++;
+        loader.update();
     }
-    function loadJs(url, callback) {
-        var script = document.createElement("script");
-        script.src = url;
-        document.body.appendChild(script);
-        script.addEventListener("load", function () {
-            script.parentNode.removeChild(script);
-            callback && callback();
-            this.removeEventListener('load', arguments.callee, false);
-        });
-    }
+
+    loader.render();
+
+    
+
     let vid;
     function setup() {
         pixelDensity(2);
@@ -79,6 +114,7 @@
         background(51, 149, 253, 255);
         manager.start();
         loadingFinished = true;
+        windowResized();
     }
 
     function preload() {
@@ -91,14 +127,15 @@
             });
         }
 
-        loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
-        loadJs(baseUrl + 'class/Shape.js', loadingUpdate);
-        loadJs(baseUrl + 'class/Animation.js', loadingUpdate);
-        loadJs(baseUrl + 'class/Page.js', loadingUpdate);
-        loadJs(baseUrl + 'class/Poster.js', loadingUpdate);
-        loadJs(baseUrl + 'class/ImageText.js', loadingUpdate);
-        loadJs(baseUrl + 'class/Paragraph.js', loadingUpdate);
-        loadJs(baseUrl + 'js/sketch.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'libs/easing.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Shape.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Animation.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Page.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Poster.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/ImageText.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Paragraph.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'class/Input.js', loadingUpdate);
+        h5_config.loadJs(baseUrl + 'js/sketch.js', loadingUpdate);
         jsonGroup['page'] = loadJSON(baseUrl + 'json/page_config.json', loadingUpdate);
     }
     function touchStarted() {
@@ -130,7 +167,6 @@
         
     }
     function windowResized() {
-        resizeCanvas(windowWidth, windowHeight);
         manager.resizeUpdate();
     }
     function draw() {
