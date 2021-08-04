@@ -79,6 +79,34 @@ class Shape extends Basic{
         this.fromRect = this.rect;
         this.targetRect = [this.rect[0],this.rect[1],this.rect[2] * s,this.rect[3] * s];
     }
+    repeatScale(s1,s2,delay,duration){
+        if (!this.assignScaleValue){
+            this.s1 = s1;
+            this.s2 = s2;
+            this.assignScaleValue = true;
+        }
+        let self = this;
+        this.scaleFromTo(s1,s2,delay,duration,function(){
+            let s = self.originRect[2] / self.rect[2];
+                self.repeatScale(1, s * (self.scaleFlag?self.s2:self.s1), delay, duration);
+                self.scaleFlag = !self.scaleFlag;
+        })
+    }
+    scaleFromTo(s1,s2,delay,duration,callback){
+        this.visible = true;
+
+        this.moving = true;
+
+        this.delay = delay;
+        this.duration = duration;
+        this.movingStartTime = millis();
+        this.fromRect = [this.rect[0],this.rect[1],this.rect[2] * s1,this.rect[3] * s1];
+        this.targetRect = [this.rect[0],this.rect[1],this.rect[2] * s2,this.rect[3] *s2];
+
+        this.movingCallback = callback;
+
+        this.ease = normalInOut;
+    }
     show(){
         this.opacity = 0;
         this.visible = true;
