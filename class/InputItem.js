@@ -27,6 +27,7 @@ class InputItem extends Basic{
         this.setStyle(this.config);
         this.input.elt.spellcheck = 'false';//去除下面红色波浪线
     }
+
     entering(){
         //输入框发生改变时调用函数
         let value = this.value();
@@ -89,6 +90,7 @@ class InputItem extends Basic{
         manager.focused = false;
         manager.canResize = true;
         console.log('flag',manager.focused);
+        manager.setCallback();
     }
     //样式
     hide(){

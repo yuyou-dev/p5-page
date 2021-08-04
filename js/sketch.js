@@ -1,7 +1,21 @@
 manager.init(function(){
     //
-    console.log(this);
     let self = this;
+    this.sound = new Sound(h5_config.baseUrl,['music_bg']);
+    this.sound.initSound();
+    this.playMusic('music_bg');//播放音乐
+    this.isMusicPlaying = !this.sound.audios.music_bg.paused;//如果音乐未播放则为false
+    this.video = new Video();
+    this.video.hide();
+    this.setVideoSrc('rs_1')
+ 
+
+
+
+
+
+
+    console.log(this);
     this.drag(function(){
         switch(self.status){
             case 1:
@@ -18,23 +32,44 @@ manager.init(function(){
         }
     });
 
+    let layer_music = this.setPage('layer_music','center',function(){
+        layer_music.zIndex = 9999;
+        let showMusic = function(){
+            manager.isMusicPlaying = !manager.sound.audios.music_bg.paused
+             if(manager.isMusicPlaying){
+                 layer_music.getChild('music_on').visible = true;
+                 layer_music.getChild('music_off').visible = false;
+             }else{
+                 layer_music.getChild('music_on').visible = false;
+                 layer_music.getChild('music_off').visible = true;
+ 
+             }
+        }
+        showMusic();
+    
+ 
+         this.getChild('music_on').setTouch(function(){
+             manager.pauseMusic('music_bg');
+             manager.isMusicOpened = false;
+             showMusic();
+         })
+         this.getChild('music_off').setTouch(function(){
+             manager.isMusicOpened = true;
+             manager.playMusic('music_bg');
+             showMusic();
+         })
+     });
+ 
+     layer_music.show();
+
     let page1 = this.setPage('page1','center',function(){
         this.hideAll();
         this.getChild('p_1').play();
 
 
-        let p = new Paragraph("哈哈哈哈哈",50,100,375,100,200,200);
-        p.setColor('#ffcc00');
-        
-        this.addChild(p);
+       
 
-
-        let textRender1 = new ImageText('num_1', 30);
-        this.addTextConfig('n1', textRender1);
-        this.textTo('n1',"150123123123123%",300,300);
-
-        let inp = new InputItem(100,100,this);
-        this.addChild(inp);
+ 
 
         for(let i = 1 ; i <= 5 ; i ++){
             setTimeout(function(_i){
@@ -48,6 +83,7 @@ manager.init(function(){
             self.status = 1;
         },4200);
         this.getChild('p_1_background').visible = true;
+     
     },true);
     page1.show();
 
@@ -56,31 +92,21 @@ manager.init(function(){
         console.log('page2 start');
 
 
+
     });
     this.answerGroup = [0,0,0,0]
     let page3 = this.setPage('page3','center',function(){
         console.log("page_3_start")
         this.hideAll();
-        //this.getChild('p_3').play();
-
-
-        /*
-        vid = createVideo(['res/video/rs_1.mp4'],function(){
-            console.log("1234")
-        });
-        */
-       // vid.hide();
+    
 
         this.video = vid;
 
-        page3.currentPageIndex = 1;
 
-        this.getChild('q1').setTouch(function(){
-            console.log('q1_end')
-        },false,function(){
-            console.log('q1_start')
-        });
-
+          let p = new Paragraph("点击背景播放5秒视频",50,100,375,100,200,300);
+        p.setColor('#ffcc00');
+        
+        this.addChild(p);
         let showQuestion = (qIndex) => {
 
             if(qIndex > 1){
@@ -113,6 +139,11 @@ manager.init(function(){
         showQuestion(1);
 
         this.getChild('p_3_background').visible = true;
+        this.getChild('p_3_background').setTouch(function(){
+            manager.showVideo(5,'',function(){
+                console.log('123')
+            })
+        })
 
     });
     let page4 = this.setPage('page4','center',function(){
@@ -129,6 +160,7 @@ manager.init(function(){
         manager.poster_show = true;
         manager.makePoster(poster_page);
     });
+
 
 //
 });

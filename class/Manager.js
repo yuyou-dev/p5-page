@@ -5,8 +5,11 @@ class Manager {
         this.isWeibo = ua.match(/WeiBo/i) == "weibo";
         this.isWeChat = ua.match(/MicroMessenger/i) == "micromessenger";
         this.isX = window.innerWidth / window.innerHeight < 670 / 1240;
+        this.sound;
         this.musicName='music_bg';
         this.isMusicOpened=true;
+        this.isMusicPlaying = false;
+        this.video;
         this.pagelist=[];
         this.canResize = true;
         this.zIndex=1;
@@ -91,17 +94,23 @@ class Manager {
 
     pauseEffect(name) {
         this.sound && this.sound.pauseEffect(name);
+        
+    }
+    setVideoSrc(name){
+        this.video.setSrc('res/video/'+name+'.mp4');
     }
     showVideo(time,id,callback) {
         console.log('video play');
 
+        let self = this;
         this.video.play();
         this.video.show();
         this.isplayVideo=true;
         let hasCurrent = false;
 
         this.video.setUpdateCallback(function () {
-            let curTime = self.video.getCurrentTime();
+            let curTime = manager.video.getCurrentTime();
+
             self.pauseMusic(self['musicName']);
             if (curTime > 0.1 && !hasCurrent) { 
                 hasCurrent = true;
@@ -110,12 +119,17 @@ class Manager {
                 }
             }
             if (curTime >= time) {
-                self.video.pause();
+                // self.video.pause();
+                self.video.stop();
+                self.video.hide();
                 self.isplayVideo=false;
                 self.playMusic(self['musicName']);
                 callback && callback();
             }
         });
+        if(this.video.isPlaying){
+            this.video.update();
+        }
     }
     preventDefault() {
         this.preventAll = true;
