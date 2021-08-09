@@ -31,6 +31,8 @@ class Page extends Basic{
         this.children.sort((a, b) => a.info.z - b.info.z);
         this.visible = true;
         this.textRenderGroup = {};
+
+        this.ss = this.getScale();
     }
     addTextConfig(name,textRender){
         

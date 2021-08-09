@@ -91,6 +91,7 @@ class Basic{
         }
         this.children.push(child);
         this.children.sort((a, b) => a.info.z - b.info.z);
+        child.parent = this;
     }
     removeSelf(){
         if(this.parent){
