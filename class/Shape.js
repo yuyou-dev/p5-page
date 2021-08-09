@@ -26,6 +26,8 @@ class Shape extends Basic{
         this.duration = 600;
 
         this.ease = easeInOutCubic;
+
+        this.scale = 1;
     }
     moveBy(dx,dy,callback,duration = 600){
         /*
@@ -72,7 +74,7 @@ class Shape extends Basic{
 
         this.ease = normalInOut;
     }
-    scaleBy(s){
+    scaleBy(s,callback){
         this.movingStartTime = millis();
         this.moving = true;
 

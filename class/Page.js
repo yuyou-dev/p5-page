@@ -3,9 +3,7 @@ class Page extends Basic{
     constructor(name){
         super();
         this.name = name;
-
         this.opacity = 1;
-
         this.adaptiveType = "normal";
         
         let layer = jsonGroup['page']['layer'];
@@ -13,16 +11,22 @@ class Page extends Basic{
         if(l && l.background){
             this.background = l.background;
         }
-        let sprites = l.node.sprite;
-        let animations = l.node.animation?l.node.animation:[];
+
         this.children = [];
-        for(let name of sprites){
-            let s = new Shape(name,"shape",this);
-            this.children.push(s);
+
+        if(l && l.node && l.node.animation){
+            let animations = l.node.animation
+            for(let name of animations){
+                let s = new Animation(name,"animation",this);
+                this.children.push(s);
+            }
         }
-        for(let name of animations){
-            let s = new Animation(name,"animation",this);
-            this.children.push(s);
+        if(l && l.node && l.node.sprite){
+            let sprites = l.node.sprite;
+            for(let name of sprites){
+                let s = new Shape(name,"shape",this);
+                this.children.push(s);
+            }
         }
         this.children.sort((a, b) => a.info.z - b.info.z);
         this.visible = true;
@@ -110,7 +114,7 @@ class Page extends Basic{
         }
 
         if(this.video){
-            image(this.video,300,300,200,200,375,0,750,1240);
+            image(this.video,0,0,750,1240,375,0,750,1240);
         }
         pop();
     }
