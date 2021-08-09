@@ -79,8 +79,15 @@ class Basic{
     }
     addChild(child){
         if(!child.info){
-            child.info = {
-                z:this.children.slice(-1)[0].info.z + 1
+            if(this.children.length >= 1){
+                console.log(this.children.slice(-1)[0])
+                child.info = {
+                    z:this.children.slice(-1)[0].info.z + 1
+                }
+            }else{
+                child.info = {
+                    z:1
+                }
             }
         }
         this.children.push(child);
