@@ -177,7 +177,7 @@ class Manager {
     }
     resizeUpdate() {
         if(!this.canResize) return;
-        resizeCanvas(windowWidth, windowHeight);
+        resizeCanvas(innerWidth, innerHeight);
         for(let n = this.pagelist.length-1; n >= 0; n--){
             let p = this.pagelist[n];
             p.resizeUpdate();
