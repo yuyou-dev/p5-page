@@ -7,18 +7,18 @@ class Basic{
             获取适配参数（适配比）
         */
         let s = 1;
-        if(width / height > 640 / 1030){
+        if(innerWidth / innerHeight > 640 / 1030){
             //宽，不留白，保持高度为1030，上下切割
-            s = height / 1030;
-        }else if(width / height > 640 / 1240){
+            s = innerHeight / 1030;
+        }else if(innerWidth / innerHeight > 640 / 1240){
             //正常，不留白，保持宽度640，上下左右都切割
-            s = width / 640;
-        }else if(width / height > 600 / 1240){
+            s = innerWidth / 640;
+        }else if(innerWidth / innerHeight > 600 / 1240){
             //窄，不留白，固定高度1240，左右切割
-            s = height / 1240;
+            s = innerHeight / 1240;
         }else{
             //非常窄，上下留白，左右保持600
-            s = width / 600;
+            s = innerWidth / 600;
         }
         return s;
     }
